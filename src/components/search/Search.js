@@ -14,13 +14,16 @@ class Search extends Component {
     images: []
   }
 
+  //https://pixabay.com/api/?key=10700504-16f6b958c4334ab654ebb5a6f&q=yellow+flowers&image_type=photo&pretty=true
+  //https://pixabay.com/api/?key=10700504-16f6b958c4334ab654ebb5a6f&q=dogs&image_type=photo&per_page=10
   onTextChange = (e) => {
     const val = e.target.value;
     this.setState({ [e.target.name] : val }, () => {
       if (val === '') {
         this.setState({ images: [] });
       } else {
-        axios.get(`${this.state.apiUrl}/?key=${this.state.apiKey}/&q=${this.state.searchText}&image_type=photo&per_page=${this.state.amount}`)
+        axios.get(`https://pixabay.com/api/?key=${this.state.apiKey}&q=${this.state.searchText}&image_type=photo&per_page=${this.state.amount}`)
+        // axios.get(`${this.state.apiUrl}/?key=${this.state.apiKey}&q=${this.state.searchText}&image_type=photo&per_page=${this.state.amount}`)
         .then((res) => {
           this.setState( {images: res.data.hits} )
         })
